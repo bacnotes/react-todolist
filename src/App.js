@@ -1,6 +1,22 @@
+import React, { useState } from "react";
 
+import AddTodo from "./Todos/AddTodo";
+import TodoList from "./Todos/TodoList";
 function App() {
-  return <h1 className='text-3xl font-bold underline'>Hello world!</h1>;
+  const [todoList, setTodoList] = useState([
+    { name: "Todo", date: new Date().toISOString().split("T")[0] },
+  ]);
+  const addTodoHandler = (todo, date) => {
+    setTodoList((prev)=>{
+      return [...prev, {name: todo, date, id: Math.random().toString()}]
+    })
+  }
+  return (
+    <div>
+      <AddTodo onAddTodo={addTodoHandler} />
+      <TodoList todos={todoList} />
+    </div>
+  );
 }
 
 export default App;
